@@ -1,0 +1,15 @@
+import { getSerialNumber } from 'raspi-serial-number';
+
+// Rasp_Pi_Serial_Num
+let Rasp_Pi_Num = 'SerialNumber_1';
+
+getSerialNumber((error: any, data: string) => {
+  if (error) {
+    console.log('Callback Error: ', error);
+  } else {
+    Rasp_Pi_Num = data;
+    console.log('Rasp_Pi_Num: ', Rasp_Pi_Num);
+  }
+});
+
+export { Rasp_Pi_Num };
