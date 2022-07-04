@@ -1,7 +1,7 @@
 import { db } from './Firebase_Init.js';
 import { ref, onValue, DatabaseReference } from 'firebase/database';
 import { Rasp_Pi_Num } from './Rasp_Pi_SerialNumber_Init.js';
-import { AA_Log } from './AA_Log.js';
+import { AA_Log } from './Ascii_Art_Log.js';
 import { exec } from 'child_process';
 
 // Initialize Command Data
