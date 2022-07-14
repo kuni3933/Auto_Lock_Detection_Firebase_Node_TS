@@ -1,7 +1,7 @@
 import asciify from 'asciify';
 
-export function AA_Log(string: string) {
-  asciify(string, { font: 'doom' }, function (err, aa) {
+export function aa_log(string: string) {
+  asciify(string, { font: 'doom' }, function (err: any, aa: any) {
     if (err) {
       console.log(err);
     } else {

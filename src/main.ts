@@ -1,42 +1,42 @@
-import { db } from './Firebase_Init.js';
-import { ref, onValue, DatabaseReference } from 'firebase/database';
-import { Rasp_Pi_Num } from './Rasp_Pi_SerialNumber_Init.js';
-import { AA_Log } from './Ascii_Art_Log.js';
+import { aa_log } from './AsciiArtLog.js';
+import { db } from './FirebaseInit.js';
 import { exec } from 'child_process';
+import { ref, onValue, DatabaseReference } from 'firebase/database';
+import { raspPiNum } from './RaspPiSerialNumberInit.js';
 
-// Initialize Command Data
-let Command: string = null;
+// Initialize commandPath
+let command: string = null;
 
 // Initialize DatabaseReference
-const Is_Locked_Ref: DatabaseReference = ref(
+const isLockedRef: DatabaseReference = ref(
   db,
-  'Rasp_Pi/' + Rasp_Pi_Num + '/Is_Locked',
+  'Rasp_Pi/' + raspPiNum + '/Is_Locked',
 );
 
 // Get Is_Locked_Value
-onValue(Is_Locked_Ref, (snapshot) => {
+onValue(isLockedRef, (snapshot) => {
   console.log('--------------------------------------------------');
   switch (snapshot.val()) {
     case null:
       console.log('Error: snapshot.val() is null...<(+p+)>');
       break;
     case true:
-      console.log(Rasp_Pi_Num + '.Is_Locked: True');
-      AA_Log('True');
-      Command = null;
+      console.log(raspPiNum + '.Is_Locked: True');
+      aa_log('True');
+      command = null;
       break;
     case false:
-      console.log(Rasp_Pi_Num + '.Is_Locked: False');
-      AA_Log('False');
-      Command = null;
+      console.log(raspPiNum + '.Is_Locked: False');
+      aa_log('False');
+      command = null;
       break;
     default:
       break;
   }
 
-  if (Command != null) {
-    exec(Command, function (err, stdout, stderr) {
-      console.log('execute => ' + Command);
+  if (command != null) {
+    exec(command, function (err, stdout, stderr) {
+      console.log('execute => ' + command);
       if (!err) {
         console.log('stdout: ' + stdout);
         console.log('stderr: ' + stderr);
@@ -44,6 +44,6 @@ onValue(Is_Locked_Ref, (snapshot) => {
         console.log(err);
       }
     });
-    Command = null;
+    command = null;
   }
 });
